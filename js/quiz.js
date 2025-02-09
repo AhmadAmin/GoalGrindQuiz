@@ -64,7 +64,7 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
       // Planning Issues
       "planning1", "planning2", "planning3", "planning4", "planning5", "planning6",
       // Task Management
-      "task1", "task2", "task3", "task4",
+      "task1", "task2", "task3", "task4", "task5", "task6",
       // Hard Targets
       "hard1", "hard2", "hard3", "hard4", "hard5", "hard6"
     ];
@@ -134,6 +134,16 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
     
     // Send the email notification (stub implementation)
     sendEmailNotification(resultMessage);
+    
+    // Send the submission to the Google Spreadsheet
+    sendSubmissionToSheet({
+      imposterScore: imposterScore,
+      stressScore: stressScore,
+      planningScore: planningScore,
+      taskScore: taskScore,
+      hardScore: hardScore,
+      primaryPainPoint: primaryCategory.name
+    });
   });
   
   
@@ -141,4 +151,32 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
   function sendEmailNotification(resultText) {
     console.log("Sending email with the following result:\n" + resultText);
     // TODO: Integrate with an email service provider (e.g., EmailJS or a backend API)
+  }
+  
+  // Suppose this function is called after the quiz submission is processed
+  function sendSubmissionToSheet(results) {
+    // Build the data to send. Adjust the data keys as needed
+    const submissionData = {
+      imposterScore: results.imposterScore,
+      stressScore: results.stressScore,
+      planningScore: results.planningScore,
+      taskScore: results.taskScore,
+      hardScore: results.hardScore,
+      primaryPainPoint: results.primaryPainPoint
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbxX1QANxQQ-z3ZrqlC0eGe5cQfc35qU93kRHMgtddr3VQSdciB6DKkdeGCIg1kjFW89yA/exec", { // Replace with your Apps Script URL
+      method: "POST",
+      mode: "no-cors", // Use no-cors if you don't need to receive a response
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(submissionData)
+    })
+    .then(response => {
+      console.log("Submission sent!", response);
+    })
+    .catch(error => {
+      console.error("Error sending submission", error);
+    });
   }
