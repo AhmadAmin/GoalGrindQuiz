@@ -135,14 +135,21 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
     // Send the email notification (stub implementation)
     sendEmailNotification(resultMessage);
     
-    // Send the submission to the Google Spreadsheet
+    // Prompt for an optional email to join the movement
+    let joinEmail = prompt("If you want to join the movement, please leave your email (optional):");
+    if (joinEmail) {
+      joinEmail = joinEmail.trim();
+    }
+    
+    // Send the submission to the Google Spreadsheet, including the email if provided
     sendSubmissionToSheet({
       imposterScore: imposterScore,
       stressScore: stressScore,
       planningScore: planningScore,
       taskScore: taskScore,
       hardScore: hardScore,
-      primaryPainPoint: primaryCategory.name
+      primaryPainPoint: primaryCategory.name,
+      email: joinEmail || ""
     });
   });
   
@@ -153,21 +160,21 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
     // TODO: Integrate with an email service provider (e.g., EmailJS or a backend API)
   }
   
-  // Suppose this function is called after the quiz submission is processed
+  // Function to send the submission data to Google Spreadsheet
   function sendSubmissionToSheet(results) {
-    // Build the data to send. Adjust the data keys as needed
     const submissionData = {
       imposterScore: results.imposterScore,
       stressScore: results.stressScore,
       planningScore: results.planningScore,
       taskScore: results.taskScore,
       hardScore: results.hardScore,
-      primaryPainPoint: results.primaryPainPoint
+      primaryPainPoint: results.primaryPainPoint,
+      email: results.email // Will be an empty string if no email was provided
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbxX1QANxQQ-z3ZrqlC0eGe5cQfc35qU93kRHMgtddr3VQSdciB6DKkdeGCIg1kjFW89yA/exec", { // Replace with your Apps Script URL
+    fetch("https://script.google.com/macros/s/AKfycbxX1QANxQQ-z3ZrqlC0eGe5cQfc35qU93kRHMgtddr3VQSdciB6DKkdeGCIg1kjFW89yA/exec", { // Replace with your actual Apps Script URL
       method: "POST",
-      mode: "no-cors", // Use no-cors if you don't need to receive a response
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/json"
       },
