@@ -147,7 +147,7 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
   loadingSpinner.id = "loading-spinner";
   loadingSpinner.innerHTML = `
     <div class="spinner"></div>
-    <p>Submitting your results...</p>
+    <p>Hold tight while our wizards brew up your results!</p>
   `;
   document.body.appendChild(loadingSpinner);
 
