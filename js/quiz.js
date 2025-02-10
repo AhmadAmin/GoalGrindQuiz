@@ -210,3 +210,35 @@ function sendSubmissionToSheet(results) {
     console.error("Error sending submission", error);
   });
 }
+
+// --- Progress Bar and Motivational Messages Code ---
+
+// Function to update the progress bar and motivational message.
+function updateProgress() {
+  // Count answered questions (radio button is checked) among elements with the class "question"
+  const answeredQuestions = document.querySelectorAll('.question input[type="radio"]:checked').length;
+  const totalQuestions = document.querySelectorAll('.question').length;
+  const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+  
+  // Update the progress bar width.
+  document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+  
+  // Update the motivational message based on milestones.
+  let message = "";
+  // For example, if the first section has 3 questions, show a message after answering 3 questions:
+  if (answeredQuestions === 3) {
+    message = "Great job! Now let's tackle the next challenge!";
+  } else if (answeredQuestions === 6) {
+    message = "You're on fire – the next round awaits!";
+  }
+  // You can continue adding conditions for further milestones if needed.
+  document.getElementById('motivational-message').innerText = message;
+}
+
+// Attach event listeners on all radio inputs inside ".question" elements.
+document.querySelectorAll('.question input[type="radio"]').forEach(input => {
+  input.addEventListener('change', updateProgress);
+});
+
+// Optionally, initialize the progress bar on page load.
+updateProgress();
