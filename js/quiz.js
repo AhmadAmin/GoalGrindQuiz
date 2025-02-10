@@ -172,7 +172,7 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
       email: results.email // Will be an empty string if no email was provided
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbxX1QANxQQ-z3ZrqlC0eGe5cQfc35qU93kRHMgtddr3VQSdciB6DKkdeGCIg1kjFW89yA/exec", { // Replace with your actual Apps Script URL
+    fetch("https://script.google.com/macros/s/AKfycbxSZk0wH8uv9uTWh4X68QQlGMuQu8Y-oidMjmUzhLLS0Y2WH1BzpWG6diig4o6RzFUB/exec", { // Replace with your actual Apps Script URL
       method: "POST",
       mode: "no-cors",
       headers: {
