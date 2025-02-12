@@ -272,3 +272,112 @@
         padding: 0 20px;
     }
   }
+
+  /* Thank You Page Specific Styles */
+  body.thankyou {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .thankyou-card {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    text-align: center;
+    max-width: 500px;
+    margin: 20px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .thankyou-card h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .thankyou-card p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+  }
+
+  .thankyou-card .results {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #444;
+    text-align: left;
+  }
+
+  .results-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #007bff;
+  }
+
+  .results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .results-list li {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    color: #444;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .results-list li:hover {
+    transform: translateX(5px);
+    background: #e9ecef;
+  }
+
+  .results-list li.primary {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+
+  .thankyou-card a.button {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+    margin-top: 20px;
+  }
+
+  .thankyou-card a.button:hover {
+    background: #0056b3;
+  }
