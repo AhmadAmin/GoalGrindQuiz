@@ -171,7 +171,7 @@ document.getElementById('quiz-form').addEventListener('submit', function (e) {
       document.getElementById('quiz-form').reset();
 
       // Redirect to the thank-you page.
-      window.location.href = "thankyou.html";
+      window.location.href = "../thankyou.html";
     }, 1000); // 1 second delay
   });
 });
