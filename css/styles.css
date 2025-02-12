@@ -91,7 +91,7 @@
     border-color: #cdd4da;
   }
   
-  /* Remove default appearance of radio inputs */
+  /* Custom radio button styling - Modified to maintain a perfect circle */
   .question input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -104,6 +104,8 @@
     position: relative;
     cursor: pointer;
     transition: background 0.3s, border 0.3s;
+    aspect-ratio: 1;   /* Ensures the width and height remain equal */
+    flex-shrink: 0;   /* Prevents the element from shrinking in a flex layout */
   }
   
   /* Custom checked state for radio buttons */
