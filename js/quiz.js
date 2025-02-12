@@ -195,7 +195,7 @@ function sendSubmissionToSheet(results) {
   };
 
   // Return the fetch promise so we can wait for it before redirecting.
-  return fetch("https://script.google.com/macros/s/AKfycbxHfV_B1Sojxdde2wh3gQrt1Z90SRv3XLsC3UasO16pwOnjucVybAOQa4YP47rNAheO/exec", {
+  return fetch("https://script.google.com/macros/s/AKfycbxofyofxhY8DCWdGL0s466tsgL7rG6niVZaJatSnvrwCt0--DcvxI8gcRFp5QxlVzap3A/exec", {
     method: "POST",
     mode: "no-cors",
     headers: {
