@@ -405,6 +405,23 @@
     height: 20.94px;
   }
 
+  .tagline {
+    position: absolute;
+    top: 232px;
+    left: 116px;
+    width: 1048px;
+    height: 344px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 134px;
+    line-height: 99.16px;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    font-stretch: 110%;
+  }
+
   /* Responsive styles for landing page */
   /* Large desktop screens */
   @media (min-width: 1441px) {
@@ -413,6 +430,13 @@
       height: auto;
       top: 200px;
       left: 150px;
+    }
+    
+    .tagline {
+      font-size: 150px;
+      top: 260px;
+      left: 150px;
+      width: 1200px;
     }
   }
 
@@ -424,6 +448,13 @@
       top: 175px;
       left: 125px;
     }
+    
+    .tagline {
+      font-size: 134px;
+      top: 232px;
+      left: 116px;
+      width: 1048px;
+    }
   }
 
   /* Tablets in landscape mode and small desktops */
@@ -433,6 +464,14 @@
       height: auto;
       top: 150px;
       left: 100px;
+    }
+    
+    .tagline {
+      font-size: 100px;
+      line-height: 80px;
+      top: 200px;
+      left: 100px;
+      width: 800px;
     }
   }
 
@@ -444,6 +483,14 @@
       top: 120px;
       left: 80px;
     }
+    
+    .tagline {
+      font-size: 80px;
+      line-height: 65px;
+      top: 180px;
+      left: 80px;
+      width: 600px;
+    }
   }
 
   /* Mobile phones in landscape mode */
@@ -453,6 +500,14 @@
       height: auto;
       top: 80px;
       left: 50px;
+    }
+    
+    .tagline {
+      font-size: 60px;
+      line-height: 50px;
+      top: 130px;
+      left: 50px;
+      width: 380px;
     }
   }
 
@@ -465,6 +520,15 @@
       left: 50%;
       transform: translateX(-50%);
     }
+    
+    .tagline {
+      font-size: 50px;
+      line-height: 45px;
+      top: 160px;
+      left: 20px;
+      width: calc(100% - 40px);
+      text-align: center;
+    }
   }
 
   /* Small mobile phones */
@@ -476,11 +540,24 @@
       left: 50%;
       transform: translateX(-50%);
     }
+    
+    .tagline {
+      font-size: 40px;
+      line-height: 35px;
+      top: 140px;
+      left: 15px;
+      width: calc(100% - 30px);
+      text-align: center;
+    }
   }
 
   /* Device orientation handling */
   @media (orientation: landscape) and (max-height: 500px) {
     .logo {
       top: 50px;
+    }
+    
+    .tagline {
+      top: 90px;
     }
   }
