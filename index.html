@@ -4,81 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GoalGrind - Unlock Your Potential</title>
-  <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    /* Global Styles */
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Arial', sans-serif;
-    }
-    
-    body {
-      /* Daring animated gradient background */
-      background: linear-gradient(-45deg, #1500c2, #3200ff, #ff0080, #b300ff);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @keyframes gradientBG {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-    
-    /* Landing page styles */
-    .landing {
-      text-align: center;
-      max-width: 800px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.55); /* Semi-transparent backdrop */
-      border-radius: 10px;
-    }
-    
-    .landing h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-    
-    .landing p {
-      font-size: 1.2rem;
-      margin-bottom: 40px;
-      line-height: 1.6;
-    }
-    
-    .landing .button {
-      display: inline-block;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      color: #fff;
-      background-color: #007bff;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.3s ease;
-    }
-    
-    .landing .button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;900&display=swap">
 </head>
-<body>
-  <section class="landing">
-    <h1>Welcome to GoalGrind!</h1>
-    <p>Discover your potential with our revolutionary AI-powered assessment quiz designed to help you unlock your goals. Experience the future of personal development today.</p>
-    <!-- Link to the quiz at goalgrind.ai/quiz -->
-    <a href="quiz/index.html" class="button">Take the Quiz</a>
-  </section>
+<body class="landing-page">
+  <img src="assets/images/logo/whitegoalgrindlogo.svg" alt="GoalGrind Logo" class="logo">
+  <h1 class="tagline">making goals happen!</h1>
+  <p class="description">Discover your potential with our revolutionary AI-powered assessment quiz designed to help you unlock your goals. Experience the future of personal development today.</p>
+  <a href="quiz/quiz.html" class="quiz-button">TAKE THE QUIZ</a>
 </body>
 </html>
