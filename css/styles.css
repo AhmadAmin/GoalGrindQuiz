@@ -775,6 +775,29 @@
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    gap: 15px; /* Add gap between buttons */
+  }
+
+  /* Make buttons more balanced on final page */
+  #page-5 .page-buttons {
+    justify-content: flex-end; /* Align buttons to right */
+  }
+
+  #page-5 .prev-page-btn {
+    margin-right: auto; /* Push back button to left */
+  }
+
+  #page-5 button[type="submit"] {
+    min-width: 120px; /* Set minimum width */
+    padding: 12px 30px; /* Slightly larger padding */
+    margin: 0; /* Remove default margin */
+    max-width: unset; /* Override max-width for submit button on last page */
+  }
+
+  /* Optional: Match height of back/submit buttons */
+  #page-5 .prev-page-btn {
+    padding: 12px 24px;
+    font-size: 1rem; /* Match font size with submit button */
   }
 
   .next-page-btn, .prev-page-btn {
