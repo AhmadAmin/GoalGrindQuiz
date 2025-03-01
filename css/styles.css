@@ -737,3 +737,71 @@
   #join h2 {
     color: #FF6F00 !important;
   }
+
+  /* Page navigation styling */
+  #page-navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  #page-indicators {
+    display: flex;
+    gap: 10px;
+  }
+
+  .page-indicator {
+    width: 12px;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .page-indicator.active {
+    background-color: #FF6F00;
+  }
+
+  .quiz-page {
+    margin-bottom: 30px;
+  }
+
+  .quiz-page:not(.active) {
+    display: none;
+  }
+
+  .page-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+
+  .next-page-btn, .prev-page-btn {
+    padding: 12px 24px;
+    background-color: #5FD3FF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+  }
+
+  .next-page-btn:hover, .prev-page-btn:hover {
+    background-color: #4CB8E5;
+  }
+
+  .prev-page-btn {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+
+  .prev-page-btn:hover {
+    background-color: #e0e0e0;
+  }
+
+  .next-page-btn {
+    margin-left: auto;
+    display: block;
+  }

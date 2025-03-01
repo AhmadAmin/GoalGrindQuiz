@@ -23,10 +23,19 @@
   
   <!-- Quiz Form (pushed down so it's not hidden behind the fixed progress bar) -->
   <form id="quiz-form">
-    <!-- Imposter Syndrome Section -->
-    <section id="imposter-syndrome">
-      <h2>Imposter Syndrome</h2>
-      
+    <!-- Page navigation -->
+    <div id="page-navigation">
+      <div id="page-indicators">
+        <span class="page-indicator active" data-page="1"></span>
+        <span class="page-indicator" data-page="2"></span>
+        <span class="page-indicator" data-page="3"></span>
+        <span class="page-indicator" data-page="4"></span>
+        <span class="page-indicator" data-page="5"></span>
+      </div>
+    </div>
+    
+    <!-- Page 1 (Questions 1-6) -->
+    <section id="page-1" class="quiz-page active">
       <!-- Question 1 -->
       <div class="question">
         <p>1. When you finish work or a project, how do you feel?</p>
@@ -81,257 +90,263 @@
         <label><input type="radio" name="imposter6" value="D"> I don't care about success.</label>
       </div>
       
+      <button type="button" class="next-page-btn">Continue</button>
     </section>
     
-    <!-- Stress Section -->
-    <section id="stress">
-      <h2>Stress</h2>
-      
-      <!-- Question 1 -->
+    <!-- Page 2 (Questions 7-12) -->
+    <section id="page-2" class="quiz-page">
+      <!-- Question 7 -->
       <div class="question">
-        <p>1. What causes you the most stress in your day?</p>
+        <p>7. What causes you the most stress in your day?</p>
         <label><input type="radio" name="stress1" value="A" required> A lot of work, I feel like I can't keep up with anything.</label>
         <label><input type="radio" name="stress1" value="B"> Many responsibilities, I feel like I'm worrying about everything.</label>
         <label><input type="radio" name="stress1" value="C"> The daily routine, I feel bored and don't know what to do.</label>
         <label><input type="radio" name="stress1" value="D"> I don't get stressed easily.</label>
       </div>
       
-      <!-- Question 2 -->
+      <!-- Question 8 -->
       <div class="question">
-        <p>2. How do you manage stress when you feel it?</p>
+        <p>8. How do you manage stress when you feel it?</p>
         <label><input type="radio" name="stress2" value="A" required> I do things I love and try to relax.</label>
         <label><input type="radio" name="stress2" value="B"> I try to finish all the work quickly so I'm not stressed.</label>
         <label><input type="radio" name="stress2" value="C"> I can't manage it, and I feel lost and don't know what to do.</label>
         <label><input type="radio" name="stress2" value="D"> I ignore the feeling of stress.</label>
       </div>
       
-      <!-- Question 3 -->
+      <!-- Question 9 -->
       <div class="question">
-        <p>3. When you have a lot of work, what happens?</p>
+        <p>9. When you have a lot of work, what happens?</p>
         <label><input type="radio" name="stress3" value="A" required> I try to organize my time and focus on the most important things.</label>
         <label><input type="radio" name="stress3" value="B"> I feel stressed, but I try to finish what I have to do.</label>
         <label><input type="radio" name="stress3" value="C"> I get stressed and can't focus, and the work takes longer.</label>
         <label><input type="radio" name="stress3" value="D"> I don't care, I will finish the work anyway.</label>
       </div>
       
-      <!-- Question 4 -->
+      <!-- Question 10 -->
       <div class="question">
-        <p>4. Do you feel that work pressures are affecting your personal life?</p>
+        <p>10. Do you feel that work pressures are affecting your personal life?</p>
         <label><input type="radio" name="stress4" value="A" required> I try to separate work and personal life, and I succeed at it.</label>
         <label><input type="radio" name="stress4" value="B"> Sometimes work affects me, but I try to deal with it.</label>
         <label><input type="radio" name="stress4" value="C"> Work always affects my life, and I don't know what to do.</label>
         <label><input type="radio" name="stress4" value="D"> I don't care about my personal life.</label>
       </div>
       
-      <!-- Question 5 -->
+      <!-- Question 11 -->
       <div class="question">
-        <p>5. How do you feel at the end of your day?</p>
+        <p>11. How do you feel at the end of your day?</p>
         <label><input type="radio" name="stress5" value="A" required> I feel relaxed, accomplished, and that I've done all I had to do.</label>
         <label><input type="radio" name="stress5" value="B"> I feel tired but satisfied with what I did.</label>
         <label><input type="radio" name="stress5" value="C"> I feel stressed, tired, and that I haven't finished anything.</label>
         <label><input type="radio" name="stress5" value="D"> I don't feel anything.</label>
       </div>
       
-      <!-- Question 6 -->
+      <!-- Question 12 -->
       <div class="question">
-        <p>6. Are you able to separate between work and relaxation time?</p>
+        <p>12. Are you able to separate between work and relaxation time?</p>
         <label><input type="radio" name="stress6" value="A" required> I know how to separate well and enjoy my relaxation time.</label>
         <label><input type="radio" name="stress6" value="B"> I try to separate, but sometimes work haunts me.</label>
         <label><input type="radio" name="stress6" value="C"> I don't know how to separate at all, and work is always with me.</label>
         <label><input type="radio" name="stress6" value="D"> I don't need to separate at all.</label>
       </div>
       
+      <div class="page-buttons">
+        <button type="button" class="prev-page-btn">Back</button>
+        <button type="button" class="next-page-btn">Continue</button>
+      </div>
     </section>
     
-    <!-- Planning Issues Section -->
-    <section id="planning-issues">
-      <h2>Planning Issues</h2>
-      
-      <!-- Question 1 -->
+    <!-- Page 3 (Questions 13-18) -->
+    <section id="page-3" class="quiz-page">
+      <!-- Question 13 -->
       <div class="question">
-        <p>1. When you have a big project, what do you do first?</p>
+        <p>13. When you have a big project, what do you do first?</p>
         <label><input type="radio" name="planning1" value="A" required> I plan well and divide the project into smaller tasks.</label>
         <label><input type="radio" name="planning1" value="B"> I try to do everything at once, and don't focus on the order.</label>
         <label><input type="radio" name="planning1" value="C"> I start working right away, and don't take time planning.</label>
         <label><input type="radio" name="planning1" value="D"> I don't care about planning.</label>
       </div>
       
-      <!-- Question 2 -->
+      <!-- Question 14 -->
       <div class="question">
-        <p>2. Can you prioritize and know what the most important thing to do is?</p>
+        <p>14. Can you prioritize and know what the most important thing to do is?</p>
         <label><input type="radio" name="planning2" value="A" required> I can prioritize very well and I implement it.</label>
         <label><input type="radio" name="planning2" value="B"> I try to prioritize, but sometimes I get confused.</label>
         <label><input type="radio" name="planning2" value="C"> I don't know how to prioritize, and I don't know where to start.</label>
         <label><input type="radio" name="planning2" value="D"> I don't prioritize.</label>
       </div>
       
-      <!-- Question 3 -->
+      <!-- Question 15 -->
       <div class="question">
-        <p>3. What makes you feel lost when you have a lot of work?</p>
+        <p>15. What makes you feel lost when you have a lot of work?</p>
         <label><input type="radio" name="planning3" value="A" required> I'm organized and I know how to deal with a lot of work.</label>
         <label><input type="radio" name="planning3" value="B"> Sometimes I get lost, but I focus again.</label>
         <label><input type="radio" name="planning3" value="C"> I always feel lost and don't know what to do.</label>
         <label><input type="radio" name="planning3" value="D"> I don't care about whether the work is a lot or little.</label>
       </div>
       
-      <!-- Question 4 -->
+      <!-- Question 16 -->
       <div class="question">
-        <p>4. What do you do when you have close deadlines?</p>
+        <p>16. What do you do when you have close deadlines?</p>
         <label><input type="radio" name="planning4" value="A" required> I plan well so I finish everything on time.</label>
         <label><input type="radio" name="planning4" value="B"> I try to finish the work quickly, but I usually manage with difficulty.</label>
         <label><input type="radio" name="planning4" value="C"> I get very stressed and feel that I won't be able to finish.</label>
         <label><input type="radio" name="planning4" value="D"> I don't care about deadlines.</label>
       </div>
       
-      <!-- Question 5 -->
+      <!-- Question 17 -->
       <div class="question">
-        <p>5. Can you stick to the plan you set for yourself?</p>
+        <p>17. Can you stick to the plan you set for yourself?</p>
         <label><input type="radio" name="planning5" value="A" required> I usually stick to the plan and finish everything on time.</label>
         <label><input type="radio" name="planning5" value="B"> Sometimes I stick to the plan, but sometimes I get lost.</label>
         <label><input type="radio" name="planning5" value="C"> I rarely stick to the plan, I usually do everything according to the circumstances.</label>
         <label><input type="radio" name="planning5" value="D"> I don't create plans at all.</label>
       </div>
       
-      <!-- Question 6 -->
+      <!-- Question 18 -->
       <div class="question">
-        <p>6. When you have a big task, what do you do?</p>
+        <p>18. When you have a big task, what do you do?</p>
         <label><input type="radio" name="planning6" value="A" required> I break it into smaller tasks and set a time for each task.</label>
         <label><input type="radio" name="planning6" value="B"> I try to finish it all at once to get rid of it.</label>
         <label><input type="radio" name="planning6" value="C"> I get very stressed and don't know where to start.</label>
         <label><input type="radio" name="planning6" value="D"> I don't care about doing it.</label>
       </div>
       
+      <div class="page-buttons">
+        <button type="button" class="prev-page-btn">Back</button>
+        <button type="button" class="next-page-btn">Continue</button>
+      </div>
     </section>
     
-    <!-- Task Management Section -->
-    <section id="task-management">
-      <h2>Task Management</h2>
-      
-      <!-- Question 1 -->
+    <!-- Page 4 (Questions 19-24) -->
+    <section id="page-4" class="quiz-page">
+      <!-- Question 19 -->
       <div class="question">
-        <p>1. What makes you delay finishing your work?</p>
+        <p>19. What makes you delay finishing your work?</p>
         <label><input type="radio" name="task1" value="A" required> I'm organized and finish my work on time.</label>
         <label><input type="radio" name="task1" value="B"> I sometimes get delayed, but I try to manage myself.</label>
         <label><input type="radio" name="task1" value="C"> I often get delayed and don't know how to finish on time.</label>
         <label><input type="radio" name="task1" value="D"> I don't care about finishing work on time.</label>
       </div>
       
-      <!-- Question 2 -->
+      <!-- Question 20 -->
       <div class="question">
-        <p>2. How do you deal with a lot of tasks at the same time?</p>
+        <p>20. How do you deal with a lot of tasks at the same time?</p>
         <label><input type="radio" name="task2" value="A" required> I divide the tasks and work on each one at its time.</label>
         <label><input type="radio" name="task2" value="B"> I try to finish all the tasks together, but I get confused.</label>
         <label><input type="radio" name="task2" value="C"> I get very stressed and don't know what to do, and I leave everything.</label>
         <label><input type="radio" name="task2" value="D"> I don't try to finish them at all.</label>
       </div>
       
-      <!-- Question 3 -->
+      <!-- Question 21 -->
       <div class="question">
-        <p>3. Can you focus on one task and finish it before starting the next?</p>
+        <p>21. Can you focus on one task and finish it before starting the next?</p>
         <label><input type="radio" name="task3" value="A" required> I focus on one task and finish it before moving on to another.</label>
         <label><input type="radio" name="task3" value="B"> I try to focus on one task, but I sometimes get distracted.</label>
         <label><input type="radio" name="task3" value="C"> I can't focus on one task, I'm always distracted between several things.</label>
         <label><input type="radio" name="task3" value="D"> I don't care about focusing at all.</label>
       </div>
       
-      <!-- Question 4 -->
+      <!-- Question 22 -->
       <div class="question">
-        <p>4. What makes you leave a task unfinished?</p>
+        <p>22. What makes you leave a task unfinished?</p>
         <label><input type="radio" name="task4" value="A" required> I usually finish all the tasks I start.</label>
         <label><input type="radio" name="task4" value="B"> I sometimes leave a task when I feel it's difficult, but I come back to finish it later.</label>
         <label><input type="radio" name="task4" value="C"> I often leave tasks unfinished and find myself doing other things.</label>
         <label><input type="radio" name="task4" value="D"> I don't care about finishing them in the first place.</label>
       </div>
       
-      <!-- Question 5 -->
+      <!-- Question 23 -->
       <div class="question">
-        <p>5. Can you set deadlines for yourself and stick to them?</p>
+        <p>23. Can you set deadlines for yourself and stick to them?</p>
         <label><input type="radio" name="task5" value="A" required> I know how to set deadlines and finish my work within them.</label>
         <label><input type="radio" name="task5" value="B"> I try to set deadlines, but I often can't stick to them.</label>
         <label><input type="radio" name="task5" value="C"> I don't know how to set deadlines for myself, and I leave things as they come.</label>
         <label><input type="radio" name="task5" value="D"> I don't need to set deadlines.</label>
       </div>
       
-      <!-- Question 6 -->
+      <!-- Question 24 -->
       <div class="question">
-        <p>6. How do you organize your daily tasks?</p>
+        <p>24. How do you organize your daily tasks?</p>
         <label><input type="radio" name="task6" value="A" required> I use an organized schedule to organize my tasks every day.</label>
         <label><input type="radio" name="task6" value="B"> I try to make a list of tasks, but I sometimes get lazy.</label>
         <label><input type="radio" name="task6" value="C"> I don't organize my tasks, and I work as they come.</label>
         <label><input type="radio" name="task6" value="D"> I don't care about organizing my tasks at all.</label>
       </div>
       
+      <div class="page-buttons">
+        <button type="button" class="prev-page-btn">Back</button>
+        <button type="button" class="next-page-btn">Continue</button>
+      </div>
     </section>
     
-    <!-- Hard Targets Section -->
-    <section id="hard-targets">
-      <h2>Hard Targets</h2>
-      
-      <!-- Question 1 -->
+    <!-- Page 5 (Questions 25-30 + Join) -->
+    <section id="page-5" class="quiz-page">
+      <!-- Question 25 -->
       <div class="question">
-        <p>1. When you have a difficult goal, what's the first thing you do?</p>
+        <p>25. When you have a difficult goal, what's the first thing you do?</p>
         <label><input type="radio" name="hard1" value="A" required> I divide this goal into smaller goals and work on them one by one.</label>
         <label><input type="radio" name="hard1" value="B"> I think a lot about the goal, but I don't start it right away.</label>
         <label><input type="radio" name="hard1" value="C"> I get very stressed and don't like difficult goals.</label>
         <label><input type="radio" name="hard1" value="D"> I don't care if the goal is difficult or easy.</label>
       </div>
       
-      <!-- Question 2 -->
+      <!-- Question 26 -->
       <div class="question">
-        <p>2. Do you feel that the goals others set for you are suitable and achievable?</p>
+        <p>26. Do you feel that the goals others set for you are suitable and achievable?</p>
         <label><input type="radio" name="hard2" value="A" required> They are usually suitable and I can achieve them.</label>
         <label><input type="radio" name="hard2" value="B"> Sometimes they are suitable, but some are difficult.</label>
         <label><input type="radio" name="hard2" value="C"> They are usually very difficult, and I can't achieve them.</label>
         <label><input type="radio" name="hard2" value="D"> I don't care about the goals that they set.</label>
       </div>
       
-      <!-- Question 3 -->
+      <!-- Question 27 -->
       <div class="question">
-        <p>3. What makes you feel that you won't be able to achieve the goal?</p>
+        <p>27. What makes you feel that you won't be able to achieve the goal?</p>
         <label><input type="radio" name="hard3" value="A" required> I'm confident in my abilities and can achieve any goal.</label>
         <label><input type="radio" name="hard3" value="B"> I feel the goal is big, but I try to overcome that.</label>
         <label><input type="radio" name="hard3" value="C"> I feel I won't be able to achieve this goal, and any effort will be useless.</label>
         <label><input type="radio" name="hard3" value="D"> I don't try to achieve goals.</label>
       </div>
       
-      <!-- Question 4 -->
+      <!-- Question 28 -->
       <div class="question">
-        <p>4. When you achieve a difficult goal, how do you feel?</p>
+        <p>28. When you achieve a difficult goal, how do you feel?</p>
         <label><input type="radio" name="hard4" value="A" required> I feel proud and satisfied with myself.</label>
         <label><input type="radio" name="hard4" value="B"> I'm happy, but I feel like I'm just lucky.</label>
         <label><input type="radio" name="hard4" value="C"> I feel I finished the task, but there's no joy or satisfaction.</label>
         <label><input type="radio" name="hard4" value="D"> I don't care about success.</label>
       </div>
       
-      <!-- Question 5 -->
+      <!-- Question 29 -->
       <div class="question">
-        <p>5. What do you think about the pressure that work puts on you to achieve goals?</p>
+        <p>29. What do you think about the pressure that work puts on you to achieve goals?</p>
         <label><input type="radio" name="hard5" value="A" required> The pressure makes me work better and achieve goals.</label>
         <label><input type="radio" name="hard5" value="B"> The pressure makes me a little stressed, but I try to deal with it.</label>
         <label><input type="radio" name="hard5" value="C"> The pressure makes me unable to work, and it becomes a burden on me.</label>
         <label><input type="radio" name="hard5" value="D"> I don't care about pressure.</label>
       </div>
       
-      <!-- Question 6 -->
+      <!-- Question 30 -->
       <div class="question">
-        <p>6. Can you balance the pursuit of difficult goals with your personal life?</p>
+        <p>30. Can you balance the pursuit of difficult goals with your personal life?</p>
         <label><input type="radio" name="hard6" value="A" required> I can balance well between goals and my personal life.</label>
         <label><input type="radio" name="hard6" value="B"> I try to balance, but sometimes it's difficult.</label>
         <label><input type="radio" name="hard6" value="C"> I can't balance at all, and I'm wasting all my life in work.</label>
         <label><input type="radio" name="hard6" value="D"> I don't care about my personal life.</label>
       </div>
       
+      <!-- Optional Join the Movement Section -->
+      <section id="join">
+        <h2>Join the Movement (Optional)</h2>
+        <p>We are working on a mission to help you achieve your goals. If you want to join the movement, please leave your email below:</p>
+        <input type="email" name="joinEmail" placeholder="Enter your email (optional)">
+      </section>
+      
+      <div class="page-buttons">
+        <button type="button" class="prev-page-btn">Back</button>
+        <button type="submit">Submit</button>
+      </div>
     </section>
-
-    <!-- Optional Join the Movement Section -->
-    <section id="join">
-      <h2>Join the Movement (Optional)</h2>
-      <p>We are working on a mission to help you achieve your goals. If you want to join the movement, please leave your email below:</p>
-      <input type="email" name="joinEmail" placeholder="Enter your email (optional)">
-    </section>
-    
-
-    <button type="submit">Submit</button>
   </form>
 
   <script src="../js/quiz.js"></script>

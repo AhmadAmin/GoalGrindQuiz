@@ -242,3 +242,115 @@ document.querySelectorAll('.question input[type="radio"]').forEach(input => {
 
 // Optionally, initialize the progress bar on page load.
 updateProgress();
+
+// Page navigation functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Next page buttons
+  document.querySelectorAll('.next-page-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const currentPage = this.closest('.quiz-page');
+      const currentPageNum = parseInt(currentPage.id.split('-')[1]);
+      const nextPageNum = currentPageNum + 1;
+      const nextPage = document.getElementById(`page-${nextPageNum}`);
+      
+      // Validate that all questions on current page are answered
+      const questions = currentPage.querySelectorAll('.question');
+      let allAnswered = true;
+      
+      questions.forEach(question => {
+        const questionName = question.querySelector('input[type="radio"]').name;
+        const answered = !!document.querySelector(`input[name="${questionName}"]:checked`);
+        if (!answered) {
+          allAnswered = false;
+        }
+      });
+      
+      if (!allAnswered) {
+        alert('Please answer all questions on this page before continuing.');
+        return;
+      }
+      
+      // Hide current page, show next page
+      currentPage.classList.remove('active');
+      nextPage.classList.add('active');
+      
+      // Update page indicators
+      document.querySelector(`.page-indicator[data-page="${currentPageNum}"]`).classList.remove('active');
+      document.querySelector(`.page-indicator[data-page="${nextPageNum}"]`).classList.add('active');
+      
+      // Scroll to top of the page
+      window.scrollTo(0, 0);
+      
+      // Update progress bar
+      updateProgress();
+    });
+  });
+  
+  // Previous page buttons
+  document.querySelectorAll('.prev-page-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const currentPage = this.closest('.quiz-page');
+      const currentPageNum = parseInt(currentPage.id.split('-')[1]);
+      const prevPageNum = currentPageNum - 1;
+      const prevPage = document.getElementById(`page-${prevPageNum}`);
+      
+      // Hide current page, show previous page
+      currentPage.classList.remove('active');
+      prevPage.classList.add('active');
+      
+      // Update page indicators
+      document.querySelector(`.page-indicator[data-page="${currentPageNum}"]`).classList.remove('active');
+      document.querySelector(`.page-indicator[data-page="${prevPageNum}"]`).classList.add('active');
+      
+      // Scroll to top of the page
+      window.scrollTo(0, 0);
+    });
+  });
+  
+  // Make page indicators clickable (but only if previous pages are completed)
+  document.querySelectorAll('.page-indicator').forEach(indicator => {
+    indicator.addEventListener('click', function() {
+      const targetPageNum = parseInt(this.getAttribute('data-page'));
+      const currentPageNum = parseInt(document.querySelector('.quiz-page.active').id.split('-')[1]);
+      
+      // Only allow navigation to previous pages or the next page if all questions are answered
+      if (targetPageNum < currentPageNum) {
+        // Navigate to a previous page
+        document.querySelector('.quiz-page.active').classList.remove('active');
+        document.getElementById(`page-${targetPageNum}`).classList.add('active');
+        
+        document.querySelector('.page-indicator.active').classList.remove('active');
+        this.classList.add('active');
+        
+        window.scrollTo(0, 0);
+      } else if (targetPageNum === currentPageNum + 1) {
+        // Try to navigate to the next page (will validate answers)
+        document.querySelector(`#page-${currentPageNum} .next-page-btn`).click();
+      }
+    });
+  });
+  
+  // Update the progress calculation to account for pagination
+  window.updateProgress = function() {
+    const answeredQuestions = document.querySelectorAll('.question input[type="radio"]:checked').length;
+    const totalQuestions = document.querySelectorAll('.question').length;
+    const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+    
+    document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+    
+    // Update motivational message based on progress
+    let message = "";
+    if (progressPercentage < 20) {
+      message = "Keep going! You're doing great!";
+    } else if (progressPercentage < 40) {
+      message = "You're halfway there! Keep pushing!";
+    } else if (progressPercentage < 60) {
+      message = "You're making progress! Keep up the good work!";
+    } else if (progressPercentage < 80) {
+      message = "Almost there! Keep pushing!";
+    } else {
+      message = "You've completed the quiz! Great job!";
+    }
+    document.getElementById('motivational-message').innerText = message;
+  };
+});
