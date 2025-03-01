@@ -213,7 +213,7 @@ function sendSubmissionToSheet(results) {
 
 // --- Progress Bar and Motivational Messages Code ---
 
-// Function to update the progress bar and motivational message.
+// Function to update the progress bar and gamification elements
 function updateProgress() {
   // Count answered questions (radio button is checked) among elements with the class "question"
   const answeredQuestions = document.querySelectorAll('.question input[type="radio"]:checked').length;
@@ -223,16 +223,144 @@ function updateProgress() {
   // Update the progress bar width.
   document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
   
-  // Update the motivational message based on milestones.
-  let message = "";
-  // For example, if the first section has 3 questions, show a message after answering 3 questions:
-  if (answeredQuestions === 3) {
-    message = "Great job! Now let's tackle the next challenge!";
-  } else if (answeredQuestions === 6) {
-    message = "You're on fire – the next round awaits!";
+  // Update progress percentage text
+  document.getElementById('progress-percentage').textContent = `${Math.round(progressPercentage)}%`;
+  
+  // Update the achievement badges based on milestones
+  updateAchievements(answeredQuestions, totalQuestions);
+}
+
+// Function to handle achievement badges and animations
+function updateAchievements(answered, total) {
+  const achievements = [
+    { threshold: Math.floor(total * 0.2), id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!' },
+    { threshold: Math.floor(total * 0.4), id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!' },
+    { threshold: Math.floor(total * 0.6), id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!' },
+    { threshold: Math.floor(total * 0.8), id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!' },
+    { threshold: total, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!' }
+  ];
+  
+  // Check for newly unlocked achievements
+  for (const achievement of achievements) {
+    const achievementElement = document.getElementById(achievement.id);
+    
+    if (answered >= achievement.threshold) {
+      if (achievementElement && !achievementElement.classList.contains('unlocked')) {
+        // Unlock the achievement with animation
+        achievementElement.classList.add('unlocked');
+        
+        // Show achievement notification
+        showAchievementNotification(achievement.title, achievement.message);
+      }
+    }
   }
-  // You can continue adding conditions for further milestones if needed.
-  document.getElementById('motivational-message').innerText = message;
+}
+
+// Function to show achievement notification
+function showAchievementNotification(title, message) {
+  // Create notification element if it doesn't exist
+  if (!document.getElementById('achievement-notification')) {
+    const notification = document.createElement('div');
+    notification.id = 'achievement-notification';
+    notification.innerHTML = `
+      <div class="notification-content">
+        <div class="notification-icon">🏆</div>
+        <div class="notification-text">
+          <h3>Achievement Unlocked!</h3>
+          <h4 id="achievement-title"></h4>
+          <p id="achievement-message"></p>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(notification);
+    
+    // Add click event to dismiss notification
+    notification.addEventListener('click', function() {
+      this.classList.remove('show');
+    });
+  }
+  
+  // Update notification content
+  document.getElementById('achievement-title').textContent = title;
+  document.getElementById('achievement-message').textContent = message;
+  
+  // Show notification with animation
+  const notification = document.getElementById('achievement-notification');
+  notification.classList.add('show');
+  
+  // Auto-hide notification after 5 seconds
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 5000);
+}
+
+// Function to initialize gamification elements
+function initializeGamification() {
+  // Create gamification container if it doesn't exist
+  if (!document.getElementById('gamification-container')) {
+    const container = document.createElement('div');
+    container.id = 'gamification-container';
+    
+    // Create progress indicator with percentage
+    const progressIndicator = document.createElement('div');
+    progressIndicator.id = 'progress-indicator';
+    progressIndicator.innerHTML = `
+      <div class="progress-circle">
+        <span id="progress-percentage">0%</span>
+      </div>
+      <span class="progress-label">Completed</span>
+    `;
+    
+    // Create achievements section
+    const achievementsSection = document.createElement('div');
+    achievementsSection.id = 'achievements-section';
+    achievementsSection.innerHTML = `
+      <h3>Your Progress</h3>
+      <div class="achievements-list">
+        <div id="achievement-starter" class="achievement">
+          <div class="achievement-icon">🌱</div>
+          <div class="achievement-info">
+            <span class="achievement-name">Getting Started</span>
+          </div>
+        </div>
+        <div id="achievement-explorer" class="achievement">
+          <div class="achievement-icon">🔍</div>
+          <div class="achievement-info">
+            <span class="achievement-name">Explorer</span>
+          </div>
+        </div>
+        <div id="achievement-committed" class="achievement">
+          <div class="achievement-icon">🔄</div>
+          <div class="achievement-info">
+            <span class="achievement-name">Committed</span>
+          </div>
+        </div>
+        <div id="achievement-determined" class="achievement">
+          <div class="achievement-icon">💪</div>
+          <div class="achievement-info">
+            <span class="achievement-name">Determined</span>
+          </div>
+        </div>
+        <div id="achievement-completer" class="achievement">
+          <div class="achievement-icon">🏆</div>
+          <div class="achievement-info">
+            <span class="achievement-name">Completer</span>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Append elements to container
+    container.appendChild(progressIndicator);
+    container.appendChild(achievementsSection);
+    
+    // Add container to the page (after the progress wrapper)
+    const progressWrapper = document.getElementById('progress-wrapper');
+    progressWrapper.parentNode.insertBefore(container, progressWrapper.nextSibling);
+  }
+  
+  // Initialize progress
+  updateProgress();
 }
 
 // Attach event listeners on all radio inputs inside ".question" elements.
@@ -240,11 +368,10 @@ document.querySelectorAll('.question input[type="radio"]').forEach(input => {
   input.addEventListener('change', updateProgress);
 });
 
-// Optionally, initialize the progress bar on page load.
-updateProgress();
-
-// Page navigation functionality
+// Initialize gamification on page load
 document.addEventListener('DOMContentLoaded', function() {
+  initializeGamification();
+  
   // Next page buttons
   document.querySelectorAll('.next-page-btn').forEach(button => {
     button.addEventListener('click', function() {
