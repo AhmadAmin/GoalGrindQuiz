@@ -467,17 +467,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update motivational message based on progress
     let message = "";
-    if (progressPercentage < 20) {
-      message = "Keep going! You're doing great!";
-    } else if (progressPercentage < 40) {
-      message = "You're halfway there! Keep pushing!";
-    } else if (progressPercentage < 60) {
-      message = "You're making progress! Keep up the good work!";
-    } else if (progressPercentage < 80) {
-      message = "Almost there! Keep pushing!";
-    } else {
+    // Only show completion message when ALL questions are answered (100%)
+    if (progressPercentage === 100) {
       message = "You've completed the quiz! Great job!";
+    } else if (progressPercentage >= 80) {
+      message = "Almost there! Just a few more questions to go!";
+    } else if (progressPercentage >= 60) {
+      message = "You're making excellent progress! Keep up the good work!";
+    } else if (progressPercentage >= 40) {
+      message = "You're doing great! Keep pushing forward!";
+    } else if (progressPercentage >= 20) {
+      message = "You're on the right track! Keep going!";
+    } else {
+      message = "Let's get started! Every answer brings you closer to understanding yourself better.";
     }
     document.getElementById('motivational-message').innerText = message;
+    
+    // Update the progress circle in the gamification container
+    const progressCircle = document.querySelector('.progress-circle');
+    if (progressCircle) {
+      progressCircle.style.setProperty('--progress', `${progressPercentage}%`);
+    }
   };
 });
