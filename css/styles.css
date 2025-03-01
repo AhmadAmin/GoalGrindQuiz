@@ -15,15 +15,15 @@
     color: #333;
     line-height: 1.6;
     padding: 20px;
-    padding-top: 160px; /* Reduced from 200px to create a more balanced spacing */
+    padding-top: 100px; /* Reduced from 160px to create less space */
   }
   
   /* Header styles */
   header {
     position: relative;
-    margin-top: 20px; /* Reduced from 40px for better spacing */
+    margin-top: 10px; /* Reduced from 20px for better spacing */
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* Reduced from 30px */
   }
   
   header h1 {
