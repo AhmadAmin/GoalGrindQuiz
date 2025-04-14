@@ -943,7 +943,7 @@
   /* Achievement notification */
   #achievement-notification {
     position: fixed;
-    bottom: -100px;
+    bottom: -100px; /* Start off-screen */
     right: 20px;
     background: white;
     border-radius: 10px;
@@ -951,12 +951,16 @@
     padding: 15px;
     width: 300px;
     z-index: 1000;
-    transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease; /* Added opacity to transition */
     cursor: pointer;
+    opacity: 0; /* Start fully transparent */
+    pointer-events: none; /* Prevent interaction when hidden */
   }
 
   #achievement-notification.show {
     bottom: 20px;
+    opacity: 1; /* Fade in */
+    pointer-events: auto; /* Allow interaction when shown */
   }
 
   .notification-content {
