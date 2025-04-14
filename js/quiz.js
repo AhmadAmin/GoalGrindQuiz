@@ -280,285 +280,20 @@ function updateProgress() {
   }
 }
 
-// Function to handle achievement badges and animations
-function updateAchievements(answered, total) {
-  const achievements = [
-    { threshold: Math.floor(total * 0.2), id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!' },
-    { threshold: Math.floor(total * 0.4), id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!' },
-    { threshold: Math.floor(total * 0.6), id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!' },
-    { threshold: Math.floor(total * 0.8), id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!' },
-    { threshold: total, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!' }
-  ];
-  
-  // Check for newly unlocked achievements
-  for (const achievement of achievements) {
-    const achievementElement = document.getElementById(achievement.id);
-    
-    if (answered >= achievement.threshold) {
-      if (achievementElement && !achievementElement.classList.contains('unlocked')) {
-        // Unlock the achievement with animation
-        achievementElement.classList.add('unlocked');
-        
-        // Show achievement notification
-        showAchievementNotification(achievement.title, achievement.message);
-      }
-    }
-  }
-
-  // Update mobile achievements
-  if (document.querySelector('.mobile-achievements')) {
-    const mobileAchievement = document.querySelector(`.mobile-achievement[data-id="${achievement.id}"]`);
-    if (mobileAchievement && answered >= achievement.threshold) {
-      mobileAchievement.classList.add('unlocked');
-    }
-  }
-}
-
-// Function to show achievement notification
-function showAchievementNotification(title, message) {
-  // Create notification element if it doesn't exist
-  if (!document.getElementById('achievement-notification')) {
-    const notification = document.createElement('div');
-    notification.id = 'achievement-notification';
-    notification.innerHTML = `
-      <div class="notification-content">
-        <div class="notification-icon">🏆</div>
-        <div class="notification-text">
-          <h3>Achievement Unlocked!</h3>
-          <h4 id="achievement-title"></h4>
-          <p id="achievement-message"></p>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(notification);
-    
-    // Add click event to dismiss notification
-    notification.addEventListener('click', function() {
-      this.classList.remove('show');
-    });
-  }
-  
-  // Update notification content
-  document.getElementById('achievement-title').textContent = title;
-  document.getElementById('achievement-message').textContent = message;
-  
-  // Show notification with animation
-  const notification = document.getElementById('achievement-notification');
-  notification.classList.add('show');
-  
-  // Auto-hide notification after 5 seconds
-  setTimeout(() => {
-    notification.classList.remove('show');
-  }, 5000);
-}
-
-// Function to initialize gamification elements
-function initializeGamification() {
-  // Create gamification container if it doesn't exist
-  if (!document.getElementById('gamification-container')) {
-    const container = document.createElement('div');
-    container.id = 'gamification-container';
-    
-    // Create progress indicator with percentage
-    const progressIndicator = document.createElement('div');
-    progressIndicator.id = 'progress-indicator';
-    progressIndicator.innerHTML = `
-      <div class="progress-circle">
-        <span id="progress-percentage">0%</span>
-      </div>
-      <span class="progress-label">Completed</span>
-    `;
-    
-    // Create achievements section
-    const achievementsSection = document.createElement('div');
-    achievementsSection.id = 'achievements-section';
-    achievementsSection.innerHTML = `
-      <h3>Your Progress</h3>
-      <div class="achievements-list">
-        <div id="achievement-starter" class="achievement">
-          <div class="achievement-icon">🌱</div>
-          <div class="achievement-info">
-            <span class="achievement-name">Getting Started</span>
-          </div>
-        </div>
-        <div id="achievement-explorer" class="achievement">
-          <div class="achievement-icon">🔍</div>
-          <div class="achievement-info">
-            <span class="achievement-name">Explorer</span>
-          </div>
-        </div>
-        <div id="achievement-committed" class="achievement">
-          <div class="achievement-icon">🔄</div>
-          <div class="achievement-info">
-            <span class="achievement-name">Committed</span>
-          </div>
-        </div>
-        <div id="achievement-determined" class="achievement">
-          <div class="achievement-icon">💪</div>
-          <div class="achievement-info">
-            <span class="achievement-name">Determined</span>
-          </div>
-        </div>
-        <div id="achievement-completer" class="achievement">
-          <div class="achievement-icon">🏆</div>
-          <div class="achievement-info">
-            <span class="achievement-name">Completer</span>
-          </div>
-        </div>
-      </div>
-    `;
-    
-    // Append elements to container
-    container.appendChild(progressIndicator);
-    container.appendChild(achievementsSection);
-    
-    // Add container to the page (after the progress wrapper)
-    const progressWrapper = document.getElementById('progress-wrapper');
-    progressWrapper.parentNode.insertBefore(container, progressWrapper.nextSibling);
-    
-    // Create mobile floating indicator
-    const mobileIndicator = document.createElement('div');
-    mobileIndicator.id = 'mobile-progress-indicator';
-    mobileIndicator.innerHTML = `
-      <div class="mobile-progress-circle">
-        <span id="mobile-progress-percentage">0%</span>
-      </div>
-    `;
-    document.body.appendChild(mobileIndicator);
-    
-    // Toggle expanded view when clicking the mobile indicator
-    mobileIndicator.addEventListener('click', function() {
-      if (this.classList.contains('expanded')) {
-        this.classList.remove('expanded');
-      } else {
-        this.classList.add('expanded');
-        // Auto-hide after 5 seconds
-        setTimeout(() => {
-          this.classList.remove('expanded');
-        }, 5000);
-      }
-    });
-
-    // Add this to the initializeGamification function after creating the mobile indicator
-    const mobileAchievements = document.createElement('div');
-    mobileAchievements.className = 'mobile-achievements';
-    mobileAchievements.innerHTML = `
-      <div class="mobile-achievement" data-id="achievement-starter">🌱</div>
-      <div class="mobile-achievement" data-id="achievement-explorer">🔍</div>
-      <div class="mobile-achievement" data-id="achievement-committed">🔄</div>
-      <div class="mobile-achievement" data-id="achievement-determined">💪</div>
-      <div class="mobile-achievement" data-id="achievement-completer">🏆</div>
-    `;
-    mobileIndicator.appendChild(mobileAchievements);
-  }
-  
-  // Initialize progress
-  updateProgress();
-}
-
-// Initialize gamification on page load
-document.addEventListener('DOMContentLoaded', function() {
-  initializeGamification();
-  
-  // Next page buttons
-  document.querySelectorAll('.next-page-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      const currentPage = this.closest('.quiz-page');
-      const currentPageNum = parseInt(currentPage.id.split('-')[1]);
-      const nextPageNum = currentPageNum + 1;
-      const nextPage = document.getElementById(`page-${nextPageNum}`);
-      
-      // Validate that all questions on current page are answered
-      const questions = currentPage.querySelectorAll('.question');
-      let allAnswered = true;
-      
-      questions.forEach(question => {
-        const questionName = question.querySelector('input[type="radio"]').name;
-        const answered = !!document.querySelector(`input[name="${questionName}"]:checked`);
-        if (!answered) {
-          allAnswered = false;
-        }
-      });
-      
-      if (!allAnswered) {
-        alert('Please answer all questions on this page before continuing.');
-        return;
-      }
-      
-      // Hide current page, show next page
-      currentPage.classList.remove('active');
-      nextPage.classList.add('active');
-      
-      // Update page indicators
-      document.querySelector(`.page-indicator[data-page="${currentPageNum}"]`).classList.remove('active');
-      document.querySelector(`.page-indicator[data-page="${nextPageNum}"]`).classList.add('active');
-      
-      // Scroll to top of the page
-      window.scrollTo(0, 0);
-      
-      // Update progress bar
-      updateProgress();
-    });
-  });
-  
-  // Previous page buttons
-  document.querySelectorAll('.prev-page-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      const currentPage = this.closest('.quiz-page');
-      const currentPageNum = parseInt(currentPage.id.split('-')[1]);
-      const prevPageNum = currentPageNum - 1;
-      const prevPage = document.getElementById(`page-${prevPageNum}`);
-      
-      // Hide current page, show previous page
-      currentPage.classList.remove('active');
-      prevPage.classList.add('active');
-      
-      // Update page indicators
-      document.querySelector(`.page-indicator[data-page="${currentPageNum}"]`).classList.remove('active');
-      document.querySelector(`.page-indicator[data-page="${prevPageNum}"]`).classList.add('active');
-      
-      // Scroll to top of the page
-      window.scrollTo(0, 0);
-    });
-  });
-  
-  // Make page indicators clickable (but only if previous pages are completed)
-  document.querySelectorAll('.page-indicator').forEach(indicator => {
-    indicator.addEventListener('click', function() {
-      const targetPageNum = parseInt(this.getAttribute('data-page'));
-      const currentPageNum = parseInt(document.querySelector('.quiz-page.active').id.split('-')[1]);
-      
-      // Only allow navigation to previous pages or the next page if all questions are answered
-      if (targetPageNum < currentPageNum) {
-        // Navigate to a previous page
-        document.querySelector('.quiz-page.active').classList.remove('active');
-        document.getElementById(`page-${targetPageNum}`).classList.add('active');
-        
-        document.querySelector('.page-indicator.active').classList.remove('active');
-        this.classList.add('active');
-        
-        window.scrollTo(0, 0);
-      } else if (targetPageNum === currentPageNum + 1) {
-        // Try to navigate to the next page (will validate answers)
-        document.querySelector(`#page-${currentPageNum} .next-page-btn`).click();
-      }
-    });
-  });
-  
-  // Attach event listeners on all radio inputs inside ".question" elements.
-  document.querySelectorAll('.question input[type="radio"]').forEach(input => {
-    input.addEventListener('change', updateProgress);
-  });
-  
-  // Initial progress update
-  updateProgress();
-});
-
 // Immediately-invoked function to avoid global scope pollution
 (function() {
   // Log that our script is running
   console.log("Quiz script initialized");
-  
+
+  // Define achievements globally within this scope
+  const achievements = [
+    { threshold: 0.2, id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!', icon: '🌱' },
+    { threshold: 0.4, id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!', icon: '🔍' },
+    { threshold: 0.6, id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!', icon: '🔄' },
+    { threshold: 0.8, id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!', icon: '💪' },
+    { threshold: 1.0, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!', icon: '🏆' }
+  ];
+
   // Wait for DOM to be fully loaded
   document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded");
@@ -675,35 +410,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to handle achievement unlocking
     function updateAchievements(answered, total) {
       console.log(`Checking achievements: ${answered}/${total}`);
-      
-      const achievements = [
-        { threshold: Math.floor(total * 0.2), id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!' },
-        { threshold: Math.floor(total * 0.4), id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!' },
-        { threshold: Math.floor(total * 0.6), id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!' },
-        { threshold: Math.floor(total * 0.8), id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!' },
-        { threshold: total, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!' }
-      ];
-      
+      let latestUnlockedIcon = ''; // Variable to store the latest icon
+      const progressRatio = total > 0 ? answered / total : 0;
+
+      // Use the globally defined achievements array
+      // Calculate actual thresholds based on total questions
+      const currentAchievements = achievements.map(ach => ({
+        ...ach,
+        actualThreshold: Math.floor(total * ach.threshold)
+      }));
+
       // Check for newly unlocked achievements
-      for (const achievement of achievements) {
+      for (const achievement of currentAchievements) {
         const achievementElement = document.getElementById(achievement.id);
-        
-        if (answered >= achievement.threshold) {
+
+        if (answered >= achievement.actualThreshold) { // Use actualThreshold
           if (achievementElement && !achievementElement.classList.contains('unlocked')) {
             console.log(`Unlocking achievement: ${achievement.title}`);
             // Unlock the achievement with animation
             achievementElement.classList.add('unlocked');
-            
+
             // Show achievement notification
             showAchievementNotification(achievement.title, achievement.message);
-            
+
             // Update mobile achievements if they exist
             const mobileAchievement = document.querySelector(`.mobile-achievement[data-id="${achievement.id}"]`);
             if (mobileAchievement) {
               mobileAchievement.classList.add('unlocked');
             }
           }
+          // Keep track of the latest unlocked icon
+          if (achievementElement) { // Check if element exists before accessing icon
+            latestUnlockedIcon = achievement.icon;
+          }
         }
+      }
+
+      // Set the data attribute on the mobile indicator
+      const mobileIndicator = document.getElementById('mobile-progress-indicator');
+      if (mobileIndicator) {
+        mobileIndicator.setAttribute('data-latest-achievement-icon', latestUnlockedIcon);
+        console.log(`Set latest icon data attribute: ${latestUnlockedIcon}`);
+      } else {
+        console.warn("Mobile indicator not found when trying to set latest icon.");
       }
     }
     
@@ -849,36 +598,14 @@ document.addEventListener('DOMContentLoaded', function() {
         achievementsSection.innerHTML = `
           <h3>Your Progress</h3>
           <div class="achievements-list">
-            <div id="achievement-starter" class="achievement">
-              <div class="achievement-icon">🌱</div>
-              <div class="achievement-info">
-                <span class="achievement-name">Getting Started</span>
+            ${achievements.map(ach => `
+              <div id="${ach.id}" class="achievement">
+                <div class="achievement-icon">${ach.icon}</div>
+                <div class="achievement-info">
+                  <span class="achievement-name">${ach.title}</span>
+                </div>
               </div>
-            </div>
-            <div id="achievement-explorer" class="achievement">
-              <div class="achievement-icon">🔍</div>
-              <div class="achievement-info">
-                <span class="achievement-name">Explorer</span>
-              </div>
-            </div>
-            <div id="achievement-committed" class="achievement">
-              <div class="achievement-icon">🔄</div>
-              <div class="achievement-info">
-                <span class="achievement-name">Committed</span>
-              </div>
-            </div>
-            <div id="achievement-determined" class="achievement">
-              <div class="achievement-icon">💪</div>
-              <div class="achievement-info">
-                <span class="achievement-name">Determined</span>
-              </div>
-            </div>
-            <div id="achievement-completer" class="achievement">
-              <div class="achievement-icon">🏆</div>
-              <div class="achievement-info">
-                <span class="achievement-name">Completer</span>
-              </div>
-            </div>
+            `).join('')}
           </div>
         `;
         
@@ -917,16 +644,12 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
         
-        // Add mobile achievements
+        // Add mobile achievements using the global array
         const mobileAchievements = document.createElement('div');
-        mobileAchievements.className = 'mobile-achievements';
-        mobileAchievements.innerHTML = `
-          <div class="mobile-achievement" data-id="achievement-starter">🌱</div>
-          <div class="mobile-achievement" data-id="achievement-explorer">🔍</div>
-          <div class="mobile-achievement" data-id="achievement-committed">🔄</div>
-          <div class="mobile-achievement" data-id="achievement-determined">💪</div>
-          <div class="mobile-achievement" data-id="achievement-completer">🏆</div>
-        `;
+        mobileAchievements.className = 'mobile-achievements'; // Keep this class
+        mobileAchievements.innerHTML = achievements.map(ach =>
+          `<div class="mobile-achievement" data-id="${ach.id}">${ach.icon}</div>`
+        ).join('');
         mobileIndicator.appendChild(mobileAchievements);
       }
     }
