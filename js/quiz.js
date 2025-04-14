@@ -280,37 +280,52 @@ function updateProgress() {
   }
 }
 
-// Function to handle achievement badges and animations
+// Function to handle achievement unlocking
 function updateAchievements(answered, total) {
+  console.log(`Checking achievements: ${answered}/${total}`);
+  let latestUnlockedIcon = ''; // Variable to store the latest icon
+
   const achievements = [
-    { threshold: Math.floor(total * 0.2), id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!' },
-    { threshold: Math.floor(total * 0.4), id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!' },
-    { threshold: Math.floor(total * 0.6), id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!' },
-    { threshold: Math.floor(total * 0.8), id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!' },
-    { threshold: total, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!' }
+    { threshold: Math.floor(total * 0.2), id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!', icon: '🌱' },
+    { threshold: Math.floor(total * 0.4), id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!', icon: '🔍' },
+    { threshold: Math.floor(total * 0.6), id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!', icon: '🔄' },
+    { threshold: Math.floor(total * 0.8), id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!', icon: '💪' },
+    { threshold: total, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!', icon: '🏆' }
   ];
-  
+
   // Check for newly unlocked achievements
   for (const achievement of achievements) {
     const achievementElement = document.getElementById(achievement.id);
-    
+
     if (answered >= achievement.threshold) {
       if (achievementElement && !achievementElement.classList.contains('unlocked')) {
+        console.log(`Unlocking achievement: ${achievement.title}`);
         // Unlock the achievement with animation
         achievementElement.classList.add('unlocked');
-        
+
         // Show achievement notification
         showAchievementNotification(achievement.title, achievement.message);
+
+        // Update mobile achievements if they exist
+        const mobileAchievement = document.querySelector(`.mobile-achievement[data-id="${achievement.id}"]`);
+        if (mobileAchievement) {
+          mobileAchievement.classList.add('unlocked');
+        }
+      }
+      // Keep track of the latest unlocked icon
+      if (achievementElement) { // Check if element exists before accessing icon
+        latestUnlockedIcon = achievement.icon;
       }
     }
   }
 
-  // Update mobile achievements
-  if (document.querySelector('.mobile-achievements')) {
-    const mobileAchievement = document.querySelector(`.mobile-achievement[data-id="${achievement.id}"]`);
-    if (mobileAchievement && answered >= achievement.threshold) {
-      mobileAchievement.classList.add('unlocked');
-    }
+  // Set the data attribute on the mobile indicator
+  const mobileIndicator = document.getElementById('mobile-progress-indicator');
+  if (mobileIndicator) {
+    mobileIndicator.setAttribute('data-latest-achievement-icon', latestUnlockedIcon);
+    console.log(`Set latest icon data attribute: ${latestUnlockedIcon}`);
+  } else {
+    console.warn("Mobile indicator not found when trying to set latest icon.");
   }
 }
 
@@ -439,16 +454,12 @@ function initializeGamification() {
       }
     });
 
-    // Add this to the initializeGamification function after creating the mobile indicator
+    // Add mobile achievements
     const mobileAchievements = document.createElement('div');
     mobileAchievements.className = 'mobile-achievements';
-    mobileAchievements.innerHTML = `
-      <div class="mobile-achievement" data-id="achievement-starter">🌱</div>
-      <div class="mobile-achievement" data-id="achievement-explorer">🔍</div>
-      <div class="mobile-achievement" data-id="achievement-committed">🔄</div>
-      <div class="mobile-achievement" data-id="achievement-determined">💪</div>
-      <div class="mobile-achievement" data-id="achievement-completer">🏆</div>
-    `;
+    mobileAchievements.innerHTML = achievements.map(ach =>
+      `<div class="mobile-achievement" data-id="${ach.id}">${ach.icon}</div>`
+    ).join('');
     mobileIndicator.appendChild(mobileAchievements);
   }
   
@@ -675,35 +686,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to handle achievement unlocking
     function updateAchievements(answered, total) {
       console.log(`Checking achievements: ${answered}/${total}`);
-      
+      let latestUnlockedIcon = ''; // Variable to store the latest icon
+
       const achievements = [
-        { threshold: Math.floor(total * 0.2), id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!' },
-        { threshold: Math.floor(total * 0.4), id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!' },
-        { threshold: Math.floor(total * 0.6), id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!' },
-        { threshold: Math.floor(total * 0.8), id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!' },
-        { threshold: total, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!' }
+        { threshold: Math.floor(total * 0.2), id: 'achievement-starter', title: 'Getting Started', message: 'You\'ve begun your journey!', icon: '🌱' },
+        { threshold: Math.floor(total * 0.4), id: 'achievement-explorer', title: 'Explorer', message: 'You\'re making great progress!', icon: '🔍' },
+        { threshold: Math.floor(total * 0.6), id: 'achievement-committed', title: 'Committed', message: 'Over halfway there! Keep going!', icon: '🔄' },
+        { threshold: Math.floor(total * 0.8), id: 'achievement-determined', title: 'Determined', message: 'Almost there! You can do it!', icon: '💪' },
+        { threshold: total, id: 'achievement-completer', title: 'Completer', message: 'Congratulations on finishing the quiz!', icon: '🏆' }
       ];
-      
+
       // Check for newly unlocked achievements
       for (const achievement of achievements) {
         const achievementElement = document.getElementById(achievement.id);
-        
+
         if (answered >= achievement.threshold) {
           if (achievementElement && !achievementElement.classList.contains('unlocked')) {
             console.log(`Unlocking achievement: ${achievement.title}`);
             // Unlock the achievement with animation
             achievementElement.classList.add('unlocked');
-            
+
             // Show achievement notification
             showAchievementNotification(achievement.title, achievement.message);
-            
+
             // Update mobile achievements if they exist
             const mobileAchievement = document.querySelector(`.mobile-achievement[data-id="${achievement.id}"]`);
             if (mobileAchievement) {
               mobileAchievement.classList.add('unlocked');
             }
           }
+          // Keep track of the latest unlocked icon
+          if (achievementElement) { // Check if element exists before accessing icon
+            latestUnlockedIcon = achievement.icon;
+          }
         }
+      }
+
+      // Set the data attribute on the mobile indicator
+      const mobileIndicator = document.getElementById('mobile-progress-indicator');
+      if (mobileIndicator) {
+        mobileIndicator.setAttribute('data-latest-achievement-icon', latestUnlockedIcon);
+        console.log(`Set latest icon data attribute: ${latestUnlockedIcon}`);
+      } else {
+        console.warn("Mobile indicator not found when trying to set latest icon.");
       }
     }
     
@@ -920,13 +945,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add mobile achievements
         const mobileAchievements = document.createElement('div');
         mobileAchievements.className = 'mobile-achievements';
-        mobileAchievements.innerHTML = `
-          <div class="mobile-achievement" data-id="achievement-starter">🌱</div>
-          <div class="mobile-achievement" data-id="achievement-explorer">🔍</div>
-          <div class="mobile-achievement" data-id="achievement-committed">🔄</div>
-          <div class="mobile-achievement" data-id="achievement-determined">💪</div>
-          <div class="mobile-achievement" data-id="achievement-completer">🏆</div>
-        `;
+        mobileAchievements.innerHTML = achievements.map(ach =>
+          `<div class="mobile-achievement" data-id="${ach.id}">${ach.icon}</div>`
+        ).join('');
         mobileIndicator.appendChild(mobileAchievements);
       }
     }
